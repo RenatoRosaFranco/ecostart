@@ -1,16 +1,12 @@
 import React from "react";
 import './style.scss';
 
+import Hero from "../../components/home/Hero";
+
 const HomePage = () => {
     return(
-        <div className='container'>
-            <div className="row">
-                <div className="col-md-12">
-                    <h1 className="text-center">
-                        Welcome to the home page!
-                    </h1>
-                </div>
-            </div>
+        <div id='home-page'>
+            <Hero />
         </div>
     )
 }

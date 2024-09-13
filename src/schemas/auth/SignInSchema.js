@@ -6,8 +6,10 @@ export const initialValues = {
 }
 
 export const SignInSchema = Yup.object().shape({
-    email: Yup.string().email('Email inválido')
+    email: Yup.string()
+        .email('Email inválido')
         .required('E-mail é obrigatório'),
-    password: Yup.string().min(6, 'A senha deve ter pelo menos  6 caracteres')
+    password: Yup.string()
+        .min(6, 'A senha deve ter pelo menos  6 caracteres')
         .required('Senha é obrigatória'),
 });

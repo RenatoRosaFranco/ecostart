@@ -1,5 +1,6 @@
-import { auth } from '../config/firebase';
+import { auth, firestore } from '../config/firebase';
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from 'firebase/auth';
+import { doc, setDoc } from 'firebase/firestore';
 
 export const signIn = async (email, password) => {
     try {
@@ -10,9 +11,18 @@ export const signIn = async (email, password) => {
     }
 }
 
-export const signUp = async (email, password) => {
+export const signUp = async (name, email, password) => {
     try {
-        await createUserWithEmailAndPassword(auth, email, password);
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+
+        await setDoc(doc(firestore, 'profiles', user.uid), {
+            uid: user.uid,
+            name: name,
+            email: email,
+            createdAt: new Date()
+        });
+
         return { success: true, message: 'Cadastro realizado com sucesso!' };
     } catch (error) {
         return { success: false, message: error.message };

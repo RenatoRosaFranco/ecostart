@@ -1,0 +1,10 @@
+#header {
+  position: relative; }
+  #header .navbar-default {
+    position: relative;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: #FFF;
+    border-radius: 0; }
+
+/*# sourceMappingURL=Header.css.map */

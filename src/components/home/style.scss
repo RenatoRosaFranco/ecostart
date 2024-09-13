@@ -1,0 +1,19 @@
+#hero {
+  position: relative;
+  border: 1px solid #EEE;
+  background-color: #FFF;
+  margin-top: -20px;
+  padding-top: 120px;
+  padding-bottom: 120px;
+
+  .title {
+    position: relative;
+    font-size: 56px;
+    font-weight: bold;
+  }
+
+  .description {
+    position: relative;
+    font-size: 18px;
+  }
+}

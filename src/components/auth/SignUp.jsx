@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 
 const SignUp = () => {
     const handleSignUp = async (values, { resetForm }) => {
-        const result = await signUp(values.email, values.password);
+        const result = await signUp(values.name, values.email, values.password);
 
         if (result.success) {
             toast.success(result.message);
@@ -29,6 +29,18 @@ const SignUp = () => {
                         {() => (
                             <Form className='form-horizontal'>
                                 <div className="form-group">
+                                    <label htmlFor='name' className='col-sm-2 control-label'>Nome:</label>
+                                    <div className="col-sm-10">
+                                        <Field
+                                            type="text"
+                                            id="name"
+                                            name="name"
+                                            className="form-control"
+                                        />
+                                        <ErrorMessage name="name" component='div' className='text-danger'/>
+                                    </div>
+                                </div>
+                                <div className="form-group">
                                     <label htmlFor='email' className='col-sm-2 control-label'>Email:</label>
                                     <div className="col-sm-10">
                                         <Field
@@ -37,7 +49,7 @@ const SignUp = () => {
                                             name="email"
                                             className="form-control"
                                         />
-                                        <ErrorMessage name="email" component='div' className='text-danger' />
+                                        <ErrorMessage name="email" component='div' className='text-danger'/>
                                     </div>
                                 </div>
                                 <div className="form-group">
