@@ -12,6 +12,9 @@ import SignIn from "./components/auth/SignIn";
 
 import EditProfile from "./components/profile/EditProfile";
 import UserProfile from "./components/profile/UserProfile";
+import CompaniesPage from "./pages/companies/Index";
+import SelfEmployedsPage from "./pages/self_employeds/Index";
+import ContactPage from "./pages/contact/Index";
 
 // Pages
 import HomePage from "./pages/home/Index";
@@ -19,9 +22,6 @@ import HomePage from "./pages/home/Index";
 // Addons
 import { ToastContainer } from "react-toastify";
 import { useAuth } from './hooks/useAuth';
-
-import ContactPage from "./pages/contact/Index";
-
 
 function App() {
     const { user, loading } = useAuth();
@@ -50,6 +50,8 @@ function App() {
                     } />
                     <Route path='*' element={<HomePage />} />
 
+                    <Route path='/empresas' element={<CompaniesPage />} />
+                    <Route path='/prestadores-servico' element={<SelfEmployedsPage />} />
                     <Route path='/contato' element={<ContactPage />} />
                 </Routes>
 
