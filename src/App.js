@@ -20,6 +20,8 @@ import HomePage from "./pages/home/Index";
 import { ToastContainer } from "react-toastify";
 import { useAuth } from './hooks/useAuth';
 
+import ContactPage from "./pages/contact/Index";
+
 
 function App() {
     const { user, loading } = useAuth();
@@ -47,6 +49,8 @@ function App() {
                         user ? <EditProfile /> : <Navigate to="/login" replace /> // Nova rota
                     } />
                     <Route path='*' element={<HomePage />} />
+
+                    <Route path='/contato' element={<ContactPage />} />
                 </Routes>
 
                 <ToastContainer />

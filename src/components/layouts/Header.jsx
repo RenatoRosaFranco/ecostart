@@ -31,7 +31,7 @@ const Header = () => {
             <nav className="navbar navbar-default">
                 <div className="container">
                     <div className="navbar-header">
-                        <Link className="navbar-brand" to="/">MeuApp</Link>
+                        <Link className="navbar-brand bold" to="/">EcoStart</Link>
                     </div>
                     <div className="collapse navbar-collapse">
                         <ul className="nav navbar-nav">
@@ -63,6 +63,9 @@ const Header = () => {
                                     </li>
                                 </>
                             )}
+                            <li>
+                                <Link to='/contato'>Contato</Link>
+                            </li>
                         </ul>
                     </div>
                 </div>
