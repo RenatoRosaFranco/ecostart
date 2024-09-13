@@ -12,3 +12,8 @@ body {
   position: relative;
   text-transform: uppercase;
 }
+
+.no-resize {
+  position: relative;
+  resize: none;
+}

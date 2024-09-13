@@ -1,11 +1,11 @@
 import React from 'react';
-import './CompanyDetail.scss';
+import './SelfEmployedDetail.scss';
 
-const CompanyDetail = ({ company, handleBackClick }) => {
-    let { name, image, description, rating } = company;
+const SelfEmployedDetail = ({ selfEmployed, handleBackClick }) => {
+    let { name, image, description, rating } = selfEmployed;
 
     return(
-        <div className='company-detail'>
+        <div className='self-employed-detail'>
             <div className="col-md-12">
                 <button
                     onClick={handleBackClick}
@@ -22,6 +22,6 @@ const CompanyDetail = ({ company, handleBackClick }) => {
             </div>
         </div>
     )
-};
+}
 
-export default CompanyDetail;
+export default SelfEmployedDetail;

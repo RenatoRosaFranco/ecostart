@@ -45,7 +45,7 @@ const ContactForm = () => {
 
                         <div className="form-group">
                             <label htmlFor="message">Mensagem</label><br />
-                            <Field as="textarea" id="message" name="message" className="form-control" placeholder="Digite o Mensagem" required />
+                            <Field as="textarea" id="message" name="message" className="form-control no-resize" placeholder="Digite o Mensagem" required />
                             <ErrorMessage name="message" component="div" className="error-message"/>
                         </div>
 

@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import Company from "../../components/companies/Company";
-import companiesData from '../../mocks/companiesData.json';
 import './style.scss';
+
+import companiesData from '../../mocks/companiesData.json';
 
 const CompaniesPage = () => {
     const [companies, setCompanies] = React.useState([]);

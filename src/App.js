@@ -22,6 +22,8 @@ import HomePage from "./pages/home/Index";
 // Addons
 import { ToastContainer } from "react-toastify";
 import { useAuth } from './hooks/useAuth';
+import CompanyDetailPage from "./pages/companies/CompanyDetailPage";
+import SelfEmployedsDetailPage from "./pages/self_employeds/SelfEmployedsDetailPage";
 
 function App() {
     const { user, loading } = useAuth();
@@ -51,7 +53,9 @@ function App() {
                     <Route path='*' element={<HomePage />} />
 
                     <Route path='/empresas' element={<CompaniesPage />} />
-                    <Route path='/prestadores-servico' element={<SelfEmployedsPage />} />
+                    <Route path='/empresas/:id' element={<CompanyDetailPage /> } />
+                    <Route path='/prestador-servicos' element={<SelfEmployedsPage />} />
+                    <Route path='/prestador-servicos/:id' element={<SelfEmployedsDetailPage />} />
                     <Route path='/contato' element={<ContactPage />} />
                 </Routes>
 

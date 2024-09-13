@@ -36,7 +36,7 @@ const Header = () => {
                     <div className="collapse navbar-collapse">
                         <ul className="nav navbar-nav">
                             <li><Link to='/empresas'>Empresas</Link></li>
-                            <li><Link to='/prestadores-servico'>Prestadores de Serviço</Link></li>
+                            <li><Link to='/prestador-servicos'>Prestadores de Serviço</Link></li>
                             <li><Link to='/carreiras'>Carreiras</Link></li>
                             <li><Link to='/contato'>Fale Conosco</Link></li>
                         </ul>

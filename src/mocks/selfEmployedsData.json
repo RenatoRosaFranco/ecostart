@@ -1,5 +1,23 @@
 [
   {
-
+  "id": 1,
+  "name": "João da Silva - Eletricista",
+  "image": "https://via.placeholder.com/100",
+  "description": "Serviços de elétrica residencial e comercial com qualidade e segurança.",
+  "rating": 4.9
+  },
+  {
+  "id": 2,
+  "name": "Maria Souza - Designer Gráfico",
+  "image": "https://via.placeholder.com/100",
+  "description": "Design gráfico profissional para identidade visual e materiais promocionais.",
+  "rating": 4.6
+  },
+  {
+    "id": 3,
+    "name": "Pedro Rocha - Personal Trainer",
+    "image": "https://via.placeholder.com/100",
+    "description": "Acompanhamento físico personalizado para alcançar seus objetivos de saúde.",
+    "rating": 4.8
   }
 ]
