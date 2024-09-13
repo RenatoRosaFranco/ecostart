@@ -1,15 +1,18 @@
 import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-import { initialValues, SignInSchema} from "../../schemas/auth/SignInSchema";
+import { initialValues, SignInSchema } from "../../schemas/auth/SignInSchema";
 import { signIn } from "../../services/AuthService";
+import { toast } from 'react-toastify';
 
 const SignIn = () => {
     const handleSignIn = async (values, { resetForm }) => {
         const result = await signIn(values.email, values.password);
-        alert(result.message);
 
         if (result.success) {
+            toast.success(result.message);
             resetForm();
+        } else {
+            toast.error(result.message);
         }
     };
 
