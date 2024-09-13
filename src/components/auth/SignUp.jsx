@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
+import InputMask from 'react-input-mask';
 import { initialValues, SignUpSchema } from '../../schemas/auth/SignUpSchema';
 import { signUp } from "../../services/AuthService";
 import { toast } from 'react-toastify';
@@ -7,8 +8,12 @@ import { toast } from 'react-toastify';
 import './SignUp.scss';
 
 const SignUp = () => {
+    const [documentMask, setDocumentMask] = useState('999.999.999-99');
+    const [documentHint, setDocumentHint] = useState('Digite o CPF')
+
     const handleSignUp = async (values, { resetForm }) => {
-        const result = await signUp(values.name, values.email, values.password);
+        let { name, email, password, document_number, account_type } = values;
+        const result = await signUp(name, email, password, document_number, account_type);
 
         if (result.success) {
             toast.success(result.message);
@@ -18,23 +23,39 @@ const SignUp = () => {
         }
     };
 
+    const handleAccountTypeChange = (e, setFieldValue) => {
+        const accountType = e.target.value;
+        setFieldValue('account_type', accountType);
+
+        if (accountType === "self_employed") {
+            setDocumentMask('999.999.999-99');
+            setDocumentHint('Digite o CPF');
+        } else {
+            setDocumentMask('99.999.999/9999-99');
+            setDocumentHint('Digite o CNPJ');
+        }
+    };
+
     return (
         <div className='container' id='signup'>
             <div className="row">
                 <div className="col-md-12">
-                    <h2>Cadastro</h2>
+                    <h2 className='bold'>Cadastro</h2>
+                    <br />
+
                     <Formik
                         initialValues={initialValues}
                         validationSchema={SignUpSchema}
                         onSubmit={handleSignUp}
                     >
-                        {() => (
+                        {({ setFieldValue }) => (
                             <Form className='form-horizontal'>
                                 <div className="form-group">
                                     <label htmlFor='name' className='col-sm-2 control-label'>Nome:</label>
                                     <div className="col-sm-10">
                                         <Field
                                             type="text"
+                                            placeholder='Digite o nome'
                                             id="name"
                                             name="name"
                                             className="form-control"
@@ -47,6 +68,7 @@ const SignUp = () => {
                                     <div className="col-sm-10">
                                         <Field
                                             type="email"
+                                            placeholder='Digite o e-mail'
                                             id="email"
                                             name="email"
                                             className="form-control"
@@ -55,10 +77,57 @@ const SignUp = () => {
                                     </div>
                                 </div>
                                 <div className="form-group">
+                                    <label htmlFor='document_number'
+                                           className='col-sm-2 control-label'>CPF/CNPJ:</label>
+                                    <div className="col-sm-10">
+                                        <Field name="document_number">
+                                            {({field}) => (
+                                                <InputMask
+                                                    {...field}
+                                                    mask={documentMask}
+                                                    className="form-control"
+                                                    placeholder={documentHint}
+                                                />
+                                            )}
+                                        </Field>
+                                        <ErrorMessage name="document_number" component='div' className='text-danger'/>
+                                    </div>
+                                </div>
+
+                                {/* Tipo de Conta (Empresa ou Autônomo) */}
+                                <div className="form-group">
+                                    <label className='col-sm-2 control-label'>Tipo de Conta:</label>
+                                    <div className="col-sm-10">
+                                        <div className="radio">
+                                            <label>
+                                                <Field
+                                                    type="radio"
+                                                    name="account_type"
+                                                    value="company"
+                                                    onChange={(e) => handleAccountTypeChange(e, setFieldValue)}
+                                                />
+                                                Empresa
+                                            </label>
+                                        </div>
+                                        <div className="radio">
+                                            <label>
+                                                <Field
+                                                    type="radio"
+                                                    name="account_type"
+                                                    value="self_employed"
+                                                    onChange={(e) => handleAccountTypeChange(e, setFieldValue)}
+                                                />
+                                                Autônomo
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="form-group">
                                     <label htmlFor="password" className="col-sm-2 control-label">Senha:</label>
                                     <div className="col-sm-10">
                                         <Field
                                             type="password"
+                                            placeholder='Digite a senha'
                                             id="password"
                                             name="password"
                                             className="form-control"
@@ -68,7 +137,9 @@ const SignUp = () => {
                                 </div>
                                 <div className="form-group">
                                     <div className="col-sm-10 col-sm-offset-2">
-                                        <button type="submit" className="btn btn-primary">Cadastrar</button>
+                                        <button type="submit" className="btn btn-primary">
+                                            Criar minha conta
+                                        </button>
                                     </div>
                                 </div>
                             </Form>

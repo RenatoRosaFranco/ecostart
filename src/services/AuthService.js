@@ -11,7 +11,7 @@ export const signIn = async (email, password) => {
     }
 }
 
-export const signUp = async (name, email, password) => {
+export const signUp = async (name, email, document_number, account_type, password) => {
     try {
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
         const user = userCredential.user;
@@ -20,6 +20,8 @@ export const signUp = async (name, email, password) => {
             uid: user.uid,
             name: name,
             email: email,
+            document_number: document_number,
+            account_type: account_type,
             createdAt: new Date()
         });
 
