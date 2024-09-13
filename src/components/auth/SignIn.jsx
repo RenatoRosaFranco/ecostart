@@ -4,6 +4,8 @@ import { initialValues, SignInSchema } from "../../schemas/auth/SignInSchema";
 import { signIn } from "../../services/AuthService";
 import { toast } from 'react-toastify';
 
+import './SignIn.scss';
+
 const SignIn = () => {
     const handleSignIn = async (values, { resetForm }) => {
         const result = await signIn(values.email, values.password);
@@ -17,7 +19,7 @@ const SignIn = () => {
     };
 
     return(
-        <div className='container'>
+        <div className='container' id='signin'>
             <div className="row">
                 <div className="col-md-12">
                     <h2>Login</h2>

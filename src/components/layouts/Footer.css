@@ -1,4 +1,9 @@
 #footer {
-  position: relative; }
+  position: relative;
+  border-top: 1px solid #EEE;
+  padding-top: 30px; }
+  #footer h4 {
+    position: relative;
+    margin-bottom: 15px; }
 
 /*# sourceMappingURL=Footer.css.map */
