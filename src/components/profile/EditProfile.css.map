@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAAA,aAAc;EACZ,QAAQ,EAAE,QAAQ;EAClB,WAAW,EAAE,IAAI;EACjB,cAAc,EAAE,IAAI",
+"sources": ["EditProfile.scss"],
+"names": [],
+"file": "EditProfile.css"
+}

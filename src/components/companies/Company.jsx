@@ -16,7 +16,7 @@ const Company = ({ company }) => {
                <div className="panel-body">
                    <img src={image} alt={name} className='company-image'/>
                    <div className="company-info">
-                       <h3>{name}</h3>
+                       <h5 className='bold'>{name}</h5>
                        <p>{description}</p>
                        <span className="company-rating">
                            ⭐ {rating}

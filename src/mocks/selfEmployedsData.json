@@ -8,14 +8,14 @@
   },
   {
   "id": 2,
-  "name": "Maria Souza - Designer Gráfico",
+  "name": "Maria Souza - Designer",
   "image": "https://via.placeholder.com/100",
   "description": "Design gráfico profissional para identidade visual e materiais promocionais.",
   "rating": 4.6
   },
   {
     "id": 3,
-    "name": "Pedro Rocha - Personal Trainer",
+    "name": "Pedro Rocha - Personal",
     "image": "https://via.placeholder.com/100",
     "description": "Acompanhamento físico personalizado para alcançar seus objetivos de saúde.",
     "rating": 4.8

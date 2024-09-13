@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { doc, getDoc } from 'firebase/firestore';
 import { auth, firestore } from '../../config/firebase';
 
+import './UserProfile.scss';
+
 const UserProfile = () => {
     const [profile, setProfile] = useState({});
     const [loading, setLoading] = useState(false);
@@ -29,10 +31,12 @@ const UserProfile = () => {
     };
 
     return(
-        <div className='container'>
+        <div id='user-profile' className='container'>
             <div className="row">
                 <div className="col-md-12">
-                    <h1>Perfil do Usuário</h1>
+                    <h1 className='bold'>Perfil do Usuário</h1>
+                    <br />
+
                     { profile ? (
                         <div>
                             <p><strong>Nome:</strong> {profile.name}</p>

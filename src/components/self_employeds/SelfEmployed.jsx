@@ -14,11 +14,11 @@ const SelfEmployed = ({ selfEmployed }) => {
         <div className='company-card col-md-4' key={id} onClick={handleClick}>
             <div className="panel panel-default">
                 <div className="panel-body">
-                    <img src={image} alt={name} className='company-image'/>
-                    <div className="company-info">
-                        <h3>{name}</h3>
+                    <img src={image} alt={name} className='self-employed-image'/>
+                    <div className="self-employed-info">
+                        <h5 className='bold'>{name}</h5>
                         <p>{description}</p>
-                        <span className="company-rating">
+                        <span className="self-employed-rating">
                            ⭐ {rating}
                        </span>
                     </div>

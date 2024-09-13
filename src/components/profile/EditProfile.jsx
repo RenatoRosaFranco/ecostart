@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { auth, firestore } from "../../config/firebase";
-import {toast} from "react-toastify";
+import { toast } from "react-toastify";
+
+import './EditProfile.scss';
 
 const EditProfile = () => {
     const [profile, setProfile] = useState({ name: '' });
@@ -51,7 +53,7 @@ const EditProfile = () => {
     }
 
     return (
-        <div className='container'>
+        <div className='container' id='edit-profile'>
             <div className="row">
                 <div className="col-md-12">
                     <h1 className='bold'>Editar Perfil</h1>
@@ -63,13 +65,19 @@ const EditProfile = () => {
                             <input
                                 type="text"
                                 name="name"
+                                className='form-control'
+                                placeholder='Digite o nome'
                                 value={profile.name}
                                 onChange={handleInputChange}
                             />
                         </div>
 
                         <br />
-                        <button type="button" className='btn btn-primary btn-md' onClick={handleSave}>Salvar</button>
+                        <button type="button"
+                                className='btn btn-primary btn-md'
+                                onClick={handleSave}>
+                            Salvar
+                        </button>
                     </form>
                 </div>
             </div>
