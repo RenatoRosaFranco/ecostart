@@ -1,5 +1,5 @@
 import { firestore } from "../config/firebase";
-import { collection, doc, addDoc, updateDoc, deleteDoc, getDoc, getDocs } from 'firebase/firestore';
+import { collection, doc, addDoc, updateDoc, deleteDoc, getDoc, getDocs, query, where } from 'firebase/firestore';
 import { getCurrentUser } from "../utils/userUtils";
 import rollbar from "../config/rollbar";
 
@@ -32,6 +32,20 @@ export const getServiceById = async (serviceId) => {
     }
 };
 
+export const getServicesByUser = async (userId) => {
+    try {
+        const servicesRef = collection(firestore, 'services');
+        const q = query(servicesRef, where('ownerId', '==', userId));
+        const querySnapshot = await getDocs(q);
+        const services = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+
+        return { success: true, services };
+    } catch (error) {
+        rollbar.error('Erro ao buscar serviços por usuário:', error);
+        return { success: false, services: [], message: error.message };
+    }
+};
+
 export const createService = async (serviceData) => {
     try {
         const user = await getCurrentUser();
@@ -52,6 +66,8 @@ export const createService = async (serviceData) => {
 };
 
 export const updateService = async (serviceId, serviceData) => {
+    const user = await getCurrentUser();
+
     try {
         const serviceRef = doc(firestore, "services", serviceId);
         await updateDoc(serviceRef, {
@@ -68,6 +84,8 @@ export const updateService = async (serviceId, serviceData) => {
 
 export const deleteService = async (serviceId) => {
     try {
+        const user = await getCurrentUser();
+
         const serviceRef = doc(firestore, 'services', serviceId);
         await deleteDoc(serviceRef);
 

@@ -1,11 +1,12 @@
 import React, {  useState, useEffect } from 'react';
-import { collection, getDocs } from 'firebase/firestore';
-import { firestore } from "../../config/firebase";
 import Service from "../../components/services/Service";
 import './Services.scss';
 
-import {useNavigate} from "react-router-dom";
-import {toast} from "react-toastify";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+
+import { getServicesByUser } from "../../business/service";
+import { getCurrentUser } from "../../utils/userUtils";
 
 const ServicesPage = () => {
     const [services, setServices] = useState([]);
@@ -15,13 +16,14 @@ const ServicesPage = () => {
     useEffect(() => {
         const fetchServices = async () => {
             try {
-                const servicesCollection = collection(firestore, 'services');
-                const servicesSnapshot = await getDocs(servicesCollection);
-                const servicesList = servicesSnapshot.docs.map(doc => ({
-                    id: doc.id, ...doc.data(),
-                }));
+                const user = await getCurrentUser();
+                const response = await getServicesByUser(user.uid);
 
-                setServices(servicesList);
+                if (response.success) {
+                    setServices(response.services);
+                } else {
+                    toast.error('Erro ao buscar serviços, tente novamente.');
+                }
             } catch (error) {
                 console.log('Erro ao buscar serviços:', error);
                 toast.error(`Erro ao buscar serviços: ${error}`);
