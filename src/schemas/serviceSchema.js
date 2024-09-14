@@ -7,7 +7,7 @@ export const initialValues = {
     category: ''
 }
 
-export const productSchema = Yup.object().shape({
+export const serviceSchema = Yup.object().shape({
     title: Yup.string()
         .required('O título é obrigatório'),
     description: Yup.string()
