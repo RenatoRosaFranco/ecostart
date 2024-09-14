@@ -1,5 +1,6 @@
 import { firestore } from "../config/firebase";
 import { collection, doc, addDoc, updateDoc, deleteDoc, getDoc, getDocs } from 'firebase/firestore';
+import { getCurrentUser } from "../utils/userUtils";
 import rollbar from "../config/rollbar";
 
 export const getServices = async () => {
@@ -33,14 +34,18 @@ export const getServiceById = async (serviceId) => {
 
 export const createService = async (serviceData) => {
     try {
+        const user = await getCurrentUser();
+
         const servicesRef = collection(firestore, 'services');
         const docRef = await addDoc(servicesRef, {
             ...serviceData,
             createdAt: new Date(),
+            ownerId: user.uid,
         });
 
         return { success: true, serviceId: docRef.id };
     } catch (error) {
+        console.log(error);
         rollbar.error('Erro ao criar serviço:', error);
         return { success: false, message: error.message };
     }
