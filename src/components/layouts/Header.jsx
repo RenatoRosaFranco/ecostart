@@ -47,8 +47,8 @@ const Header = () => {
                     </div>
                     <div className="collapse navbar-collapse">
                         <ul className="nav navbar-nav">
-                            <li><Link to='/empresas'>Empresas</Link></li>
-                            <li><Link to='/prestador-servicos'>Prestadores de Serviço</Link></li>
+                            <li><Link to={'/empresas'}>Empresas</Link></li>
+                            <li><Link to={'/prestador-servicos'}>Prestadores de Serviço</Link></li>
                         </ul>
 
                         <form className="navbar-form navbar-left" role="search">
@@ -67,10 +67,10 @@ const Header = () => {
                             {!user && (
                                 <>
                                     <li>
-                                        <Link to="/login">Entrar</Link>
+                                        <Link to={'/login'}>Entrar</Link>
                                     </li>
                                     <li>
-                                        <Link to="/criar-conta">Criar Conta</Link>
+                                        <Link to={'/criar-conta'}>Criar Conta</Link>
                                     </li>
                                 </>
                             )}
@@ -91,12 +91,17 @@ const Header = () => {
                                             Perfil <span className="caret"></span>
                                         </button>
                                         <ul className="dropdown-menu">
-                                            <li><Link to='/perfil'>Meu Perfil</Link></li>
-                                            <li><Link to='/meus-servicos'>Meus Serviços</Link></li>
-                                            <li><Link to='/editar-perfil'>Editar Perfil</Link></li>
-                                            <li><Link to='/favoritos'>Favoritos</Link></li>
-                                            <li><Link to='/ajuda'>Ajuda</Link></li>
-                                            <li><Link to='/seguranca'>Segurança</Link></li>
+                                            <li><Link to={'/meus-produtos'}>Meus Produtos</Link></li>
+                                            <li><Link to={'/meus-servicos'}>Meus Serviços</Link></li>
+                                            <li><Link to={'/minhas-avaliacoes'}>Minhas Avaliações</Link></li>
+                                            <hr/>
+                                            <li><Link to={'/perfil'}>Meu Perfil</Link></li>
+                                            <li><Link to={'/editar-perfil'}>Editar Perfil</Link></li>
+                                            <li><Link to={'/favoritos'}>Favoritos</Link></li>
+                                            <hr/>
+                                            <li><Link to={'/ajuda'}>Ajuda</Link></li>
+                                            <li><Link to={'/seguranca'}>Segurança</Link></li>
+                                            <li><Link to='#' onClick={handleLogout}>Sair</Link></li>
                                         </ul>
                                     </li>
                                     <li>

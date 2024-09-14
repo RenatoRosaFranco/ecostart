@@ -19,6 +19,10 @@ const Service = ({ service }) => {
         return () => unsubscribe();
     }, []);
 
+    const handleShow = () => {
+        navigate(`/meus-servicos/${service.id}`);
+    }
+
     const handleEdit = () => {
         navigate(`/meus-servicos/${service.id}/editar`);
     }
@@ -40,7 +44,7 @@ const Service = ({ service }) => {
     }
 
     return (
-        <li key={service.id} className="service-item">
+        <div key={service.id} className="service-item col-md-3">
             <div className="service-header">
                 <h2>{service.title}</h2>
                 {currentUser && currentUser.uid === service.ownerId && (
@@ -58,7 +62,11 @@ const Service = ({ service }) => {
             <p>{service.description}</p>
             <p><strong>Preço:</strong> {service.price}</p>
             <p><strong>Categoria:</strong> {service.category}</p>
-        </li>
+
+            <button className="remove-button" onClick={handleShow}>
+                Ver Mais
+            </button>
+        </div>
     );
 }
 

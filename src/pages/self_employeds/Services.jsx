@@ -60,11 +60,11 @@ const ServicesPage = () => {
                         <hr />
 
                         {services.length > 0 ? (
-                            <ul>
+                            <div className='row'>
                                 {services.map(service => (
                                     <Service key={service.id} service={service} />
                                 ))}
-                            </ul>
+                            </div>
                         ) : (
                             <p className='well text-center'>
                                 Você ainda não anunciou nenhum serviço,
