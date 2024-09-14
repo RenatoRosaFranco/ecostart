@@ -17,7 +17,7 @@ export const getFavorites = async (userId) => {
         rollbar.error('Erro ao buscar favoritos:', error);
         return { success: false, favorites: [], message: error.message };
     }
-}
+};
 
 export const addFavorite = async (userId, favorite) => {
     try {
@@ -40,7 +40,7 @@ export const addFavorite = async (userId, favorite) => {
         rollbar.error('Erro ao adicionar favorito:', error);
         return {success: false, message: error.message}
     }
-}
+};
 
 export const removeFavorite = async (userId, itemId, itemType) => {
     try {
@@ -62,4 +62,4 @@ export const removeFavorite = async (userId, itemId, itemType) => {
         rollbar.error('Erro ao remover favorito:', error);
         return { success: false, message: error.message };
     }
-}
+};
