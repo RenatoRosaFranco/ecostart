@@ -19,13 +19,17 @@ const Service = ({ service }) => {
         return () => unsubscribe();
     }, []);
 
+    const handleEdit = () => {
+        navigate(`/meus-servicos/${service.id}/editar`);
+    }
+
     const handleRemove = async () => {
         try {
             const response = await deleteService(service.id);
 
             if (response.success) {
                 toast.success('Serviço removido com sucesso!');
-                navigate('/services');
+                navigate('/');
             } else {
                 toast.error('Erro ao remover o serviço.');
             }
@@ -40,9 +44,15 @@ const Service = ({ service }) => {
             <div className="service-header">
                 <h2>{service.title}</h2>
                 {currentUser && currentUser.uid === service.ownerId && (
-                    <button className="remove-button" onClick={handleRemove}>
-                        Remover
-                    </button>
+                    <>
+                        <button className='edit-button' onClick={handleEdit}>
+                            Editar
+                        </button>
+
+                        <button className="remove-button" onClick={handleRemove}>
+                            Remover
+                        </button>
+                    </>
                 )}
             </div>
             <p>{service.description}</p>

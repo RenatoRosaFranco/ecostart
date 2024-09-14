@@ -33,6 +33,7 @@ import ServiceDetailPage from "./pages/self_employeds/services/ServiceDetalPage"
 import AddServicePage from "./pages/self_employeds/services/AddServicePage";
 import SecurityPage from "./pages/security/Index";
 import HelpPage from "./pages/help/Index";
+import EditServicePage from "./pages/self_employeds/services/EditServicePage";
 
 function App() {
     const { user, loading } = useAuth();
@@ -69,8 +70,12 @@ function App() {
                         user ? <ServicesPage /> : <Navigate to="/login" replace />}
                     />
 
-                    <Route path='/meus-servicos/:id' element={user ?
+                    <Route path='/meus-servicos/:serviceId' element={user ?
                         <ServiceDetailPage /> : <Navigate to="/login" replace />
+                    } />
+
+                    <Route path='/meus-servicos/:serviceId/editar' element={ user ?
+                        <EditServicePage /> : <Navigate to="/login" replace />
                     } />
 
                     <Route path='/adicionar-servico' element={

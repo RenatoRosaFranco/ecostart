@@ -91,6 +91,7 @@ export const deleteService = async (serviceId) => {
 
         return { success: true, message: 'Serviço removido com sucesso!' };
     } catch (error) {
+        console.log(error);
         rollbar.error('Erro ao remover serviço:', error);
         return { success: false, message: error.message };
     }
