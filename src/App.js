@@ -28,6 +28,11 @@ import { useAuth } from './hooks/useAuth';
 import CompanyDetailPage from "./pages/companies/CompanyDetailPage";
 import SelfEmployedsDetailPage from "./pages/self_employeds/SelfEmployedsDetailPage";
 import FavoritesPage from "./pages/favorites/Index";
+import ServicesPage from "./pages/self_employeds/Services";
+import ServiceDetailPage from "./pages/self_employeds/services/ServiceDetalPage";
+import AddServicePage from "./pages/self_employeds/services/AddServicePage";
+import SecurityPage from "./pages/security/Index";
+import HelpPage from "./pages/help/Index";
 
 function App() {
     const { user, loading } = useAuth();
@@ -51,17 +56,41 @@ function App() {
                     <Route path="/perfil" element={
                         user ? <UserProfile /> : <Navigate to="/login" replace />
                     } />
-                    <Route path="/editar-perfil" element={
-                        user ? <EditProfile /> : <Navigate to="/login" replace /> // Nova rota
-                    } />
-                    <Route path='*' element={<HomePage />} />
+
+                    <Route path="/editar-perfil" element={user ? <EditProfile /> : <Navigate to="/login" replace />} />
 
                     <Route path='/empresas' element={<CompaniesPage />} />
                     <Route path='/empresas/:id' element={<CompanyDetailPage /> } />
+
                     <Route path='/prestador-servicos' element={<SelfEmployedsPage />} />
                     <Route path='/prestador-servicos/:id' element={<SelfEmployedsDetailPage />} />
-                    <Route path='/favoritos' element={<FavoritesPage />} />
+
+                    <Route path='/meus-servicos' element={
+                        user ? <ServicesPage /> : <Navigate to="/login" replace />}
+                    />
+
+                    <Route path='/meus-servicos/:id' element={user ?
+                        <ServiceDetailPage /> : <Navigate to="/login" replace />
+                    } />
+
+                    <Route path='/adicionar-servico' element={
+                        user ? <AddServicePage /> : <Navigate to="/login" replace />}
+                    />
+
+                    <Route path='/favoritos' element={
+                        user ? <FavoritesPage /> : <Navigate to="/login" replace />
+                    } />
+
+                    <Route path='/seguranca' element={
+                        user? <SecurityPage /> : <Navigate to="/login" replace />
+                    } />
+
+                    <Route path='/ajuda' element={
+                        user ? <HelpPage /> : <Navigate to='/login' replace />
+                    } />
+
                     <Route path='/contato' element={<ContactPage />} />
+                    <Route path='*' element={<HomePage />} />
                 </Routes>
 
                 <ToastContainer />

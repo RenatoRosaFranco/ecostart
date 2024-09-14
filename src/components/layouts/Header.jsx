@@ -92,10 +92,11 @@ const Header = () => {
                                         </button>
                                         <ul className="dropdown-menu">
                                             <li><Link to='/perfil'>Meu Perfil</Link></li>
+                                            <li><Link to='/meus-servicos'>Meus Serviços</Link></li>
                                             <li><Link to='/editar-perfil'>Editar Perfil</Link></li>
                                             <li><Link to='/favoritos'>Favoritos</Link></li>
-                                            <li><Link to='/favoritos'>Ajuda</Link></li>
-                                            <li><Link to='/favoritos'>Segurança</Link></li>
+                                            <li><Link to='/ajuda'>Ajuda</Link></li>
+                                            <li><Link to='/seguranca'>Segurança</Link></li>
                                         </ul>
                                     </li>
                                     <li>
