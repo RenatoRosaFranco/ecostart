@@ -8,11 +8,23 @@ import './Header.scss';
 
 const Header = () => {
     const [user, setUser] = useState(null);
+    const [isSticky, setIsSticky] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged(setUser);
         return () => unsubscribe();
+    }, []);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            setIsSticky(window.scrollY > 50);
+        };
+
+        window.addEventListener('scroll', handleScroll);
+
+        // Cleanup on unmount
+        return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
     const handleLogout = async () => {
@@ -28,7 +40,7 @@ const Header = () => {
 
     return (
         <header id="header">
-            <nav className="navbar navbar-default">
+            <nav className={`navbar navbar-default${isSticky ? ' sticky' : ''}`}>
                 <div className="container">
                     <div className="navbar-header">
                         <Link className="navbar-brand bold" to="/">EcoStart</Link>
@@ -37,9 +49,19 @@ const Header = () => {
                         <ul className="nav navbar-nav">
                             <li><Link to='/empresas'>Empresas</Link></li>
                             <li><Link to='/prestador-servicos'>Prestadores de Serviço</Link></li>
-                            <li><Link to='/carreiras'>Carreiras</Link></li>
-                            <li><Link to='/contato'>Fale Conosco</Link></li>
                         </ul>
+
+                        <form className="navbar-form navbar-left" role="search">
+                            <div className="form-group">
+                                <div className="input-group">
+                                    <input type="text" className="form-control"
+                                           placeholder="Busque por serviço ou comércio"/>
+                                    <div className="input-group-addon">
+                                        <i className="fas fa-search"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
 
                         <div className="nav navbar-nav navbar-right">
                             {!user && (
@@ -55,10 +77,26 @@ const Header = () => {
                             {user && (
                                 <>
                                     <li>
-                                        <Link to='/perfil'>Meu Perfil</Link>
+                                        <Link to='/'>
+                                            Aprenda
+                                        </Link>
                                     </li>
-                                    <li>
-                                        <Link to='/editar-perfil'>Editar Perfil</Link>
+                                    <li className="dropdown">
+                                        <button
+                                            className="btn btn-link navbar-btn dropdown-toggle"
+                                            data-toggle="dropdown"
+                                            aria-haspopup="true"
+                                            aria-expanded="false"
+                                        >
+                                            Perfil <span className="caret"></span>
+                                        </button>
+                                        <ul className="dropdown-menu">
+                                            <li><Link to='/perfil'>Meu Perfil</Link></li>
+                                            <li><Link to='/editar-perfil'>Editar Perfil</Link></li>
+                                            <li><Link to='/favoritos'>Favoritos</Link></li>
+                                            <li><Link to='/favoritos'>Ajuda</Link></li>
+                                            <li><Link to='/favoritos'>Segurança</Link></li>
+                                        </ul>
                                     </li>
                                     <li>
                                         <button

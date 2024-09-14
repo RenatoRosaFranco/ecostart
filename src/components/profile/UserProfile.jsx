@@ -35,6 +35,7 @@ const UserProfile = () => {
             <div className="row">
                 <div className="col-md-12">
                     <h1 className='bold'>Perfil do Usuário</h1>
+                    <p>Olá <span className='bold'>{profile.name}</span>, Bem vindo ao seu perfil.</p>
                     <br />
 
                     { profile ? (

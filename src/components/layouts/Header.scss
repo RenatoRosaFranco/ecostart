@@ -1,14 +1,77 @@
+$navbar-background-color: #FFF;
+$navbar-border-color: transparent;
+$navbar-text-color: #333;
+$navbar-text-hover-color: #007bff;
+$dropdown-menu-background: #f8f9fa;
+
 #header {
   position: relative;
 
+  &.sticky {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background-color: $navbar-background-color;
+    border-bottom: 1px solid #EEE;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
   .navbar-default {
-    position: relative;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    background-color: #FFF;
-    border-top: 0px;
-    border-left: 0px;
-    border-right: 0px;
+    padding: 10px 0;
+    background-color: $navbar-background-color;
+    border-bottom: 1px solid #EEE;
     border-radius: 0;
+  }
+
+  .navbar-form {
+    margin: 8px 0;
+
+    input[type='text'] {
+      position: relative;
+      width: 230px;
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+      border-right: 0 !important;
+    }
+
+    .input-group-addon {
+      background-color: $navbar-background-color;
+      border-left: 0 !important;
+    }
+
+    .form-control {
+      border-radius: 4px;
+    }
+
+    .btn {
+      border-left: 0;
+    }
+  }
+
+  .navbar-nav {
+    .nav-link {
+      padding: 10px 15px;
+      font-size: 14px;
+      color: $navbar-text-color;
+
+      &:hover {
+        color: $navbar-text-hover-color;
+        text-decoration: underline;
+      }
+    }
+
+    .dropdown-menu {
+      min-width: 200px;
+
+      .dropdown-item {
+        padding: 10px 15px;
+        font-size: 14px;
+        color: $navbar-text-color;
+
+        &:hover {
+          background-color: $dropdown-menu-background;
+        }
+      }
+    }
   }
 }

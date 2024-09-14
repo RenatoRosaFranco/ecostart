@@ -57,6 +57,7 @@ const EditProfile = () => {
             <div className="row">
                 <div className="col-md-12">
                     <h1 className='bold'>Editar Perfil</h1>
+                    <p>Atualize seus dados cadastrais.</p>
                     <br />
 
                     <form>

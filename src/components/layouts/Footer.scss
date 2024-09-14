@@ -2,9 +2,49 @@
   position: relative;
   border-top: 1px solid #EEE;
   padding-top: 30px;
+  padding-bottom: 50px;
 
   h4 {
     position: relative;
-    margin-bottom: 15px;
+    margin-bottom: 30px;
+  }
+
+  .links {
+    li {
+      position: relative;
+      margin-bottom: 15px;
+    }
+  }
+
+  .social-list {
+    position: relative;
+    margin-top: 10px;
+
+    li {
+      position: relative;
+      margin-right: 15px;
+    }
+
+    .social-icon {
+      position: relative;
+      font-size: 24px;
+    }
+  }
+
+  #copyright {
+    position: relative;
+    border-top: 1px solid #EEE;
+    padding-top: 50px;
+    margin-top: 30px;
+
+    .links {
+      margin-top: 15px;
+
+      a {
+        position: relative;
+        font-size: 16px;
+        margin-right: 10px;
+      }
+    }
   }
 }

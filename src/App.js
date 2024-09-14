@@ -2,6 +2,9 @@ import React from 'react';
 import {BrowserRouter as Router, Navigate, Route, Routes} from 'react-router-dom';
 import './App.scss';
 
+import { WhatsAppWidget } from 'react-whatsapp-widget';
+import 'react-whatsapp-widget/dist/index.css';
+
 // Layouts
 import Footer from "./components/layouts/Footer";
 import Header from "./components/layouts/Header";
@@ -24,6 +27,7 @@ import { ToastContainer } from "react-toastify";
 import { useAuth } from './hooks/useAuth';
 import CompanyDetailPage from "./pages/companies/CompanyDetailPage";
 import SelfEmployedsDetailPage from "./pages/self_employeds/SelfEmployedsDetailPage";
+import FavoritesPage from "./pages/favorites/Index";
 
 function App() {
     const { user, loading } = useAuth();
@@ -56,11 +60,16 @@ function App() {
                     <Route path='/empresas/:id' element={<CompanyDetailPage /> } />
                     <Route path='/prestador-servicos' element={<SelfEmployedsPage />} />
                     <Route path='/prestador-servicos/:id' element={<SelfEmployedsDetailPage />} />
+                    <Route path='/favoritos' element={<FavoritesPage />} />
                     <Route path='/contato' element={<ContactPage />} />
                 </Routes>
 
                 <ToastContainer />
                 <Footer />
+
+                <WhatsAppWidget
+                    phoneNumber="XXXXXXXXXX"
+                />
             </div>
         </Router>
     );

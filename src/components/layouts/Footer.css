@@ -1,9 +1,33 @@
 #footer {
   position: relative;
   border-top: 1px solid #EEE;
-  padding-top: 30px; }
+  padding-top: 30px;
+  padding-bottom: 50px; }
   #footer h4 {
     position: relative;
+    margin-bottom: 30px; }
+  #footer .links li {
+    position: relative;
     margin-bottom: 15px; }
+  #footer .social-list {
+    position: relative;
+    margin-top: 10px; }
+    #footer .social-list li {
+      position: relative;
+      margin-right: 15px; }
+    #footer .social-list .social-icon {
+      position: relative;
+      font-size: 24px; }
+  #footer #copyright {
+    position: relative;
+    border-top: 1px solid #EEE;
+    padding-top: 50px;
+    margin-top: 30px; }
+    #footer #copyright .links {
+      margin-top: 15px; }
+      #footer #copyright .links a {
+        position: relative;
+        font-size: 16px;
+        margin-right: 10px; }
 
 /*# sourceMappingURL=Footer.css.map */
