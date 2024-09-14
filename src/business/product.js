@@ -1,5 +1,6 @@
 import { firestore } from '../config/firebase';
 import { collection, doc, addDoc, updateDoc, deleteDoc, getDoc, getDocs } from 'firebase/firestore';
+import { getCurrentUser } from "../utils/userUtils";
 import rollbar from "../config/rollbar";
 
 export const getProducts = async () => {
@@ -33,10 +34,13 @@ export const getProductById = async (productId) => {
 
 export const createProduct = async (productData) => {
     try {
+        const user = await getCurrentUser();
+
         const productsRef = collection(firestore, 'products');
         const docRef = await addDoc(productsRef, {
             ...productData,
             createdAt: new Date(),
+            ownerId: user.uid
         });
 
         return { success: true, productId: docRef.id };
