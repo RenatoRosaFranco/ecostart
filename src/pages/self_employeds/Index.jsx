@@ -1,15 +1,39 @@
 import React, {useEffect, useState} from 'react';
 import SelfEmployed from '../../components/self_employeds/SelfEmployed';
+import { getSelfEmployedsProfiles } from "../../business/self_employed";
 import './style.scss';
-
-import selfEmployedsData from '../../mocks/selfEmployedsData.json';
+import rollbar from "../../config/rollbar";
+import {toast} from "react-toastify";
+import Company from "../../components/companies/Company";
 
 const SelfEmployedsPage = () => {
     const [selfEmployeds, setSelfEmployeds] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
-        setSelfEmployeds(selfEmployedsData);
+        const fetchSelfEmployeds = async () => {
+            try {
+                const response = await getSelfEmployedsProfiles();
+                if (response.success) {
+                    setSelfEmployeds(response.selfEmployeds);
+                } else {
+                    toast.error('Erro ao buscar prestadores de serviço, tente novamente.');
+                    setError(response.message || 'Erro ao buscar prestadores.');
+                }
+            } catch(error) {
+                setError(error);
+                rollbar.error('Erro ao buscar prestadores de serviço:', error);
+            } finally {
+                setLoading(false);
+            }
+        }
+
+        fetchSelfEmployeds();
     }, []);
+
+    if (loading) return <div>Carregando...</div>;
+    if (error) return <>{error}</>;
 
     return (
         <section id="self-employeds-page">
@@ -21,9 +45,17 @@ const SelfEmployedsPage = () => {
                         <hr/>
 
                         <div className="row">
-                            {selfEmployeds.map(selfEmployed => (
-                                <SelfEmployed selfEmployed={selfEmployed} key={selfEmployed.id} />
-                            ))}
+                            {selfEmployeds.length > 0 ? (
+                                selfEmployeds.map(company => (
+                                    <Company company={company} key={company.id}/>
+                                ))
+                            ) : (
+                                <div className="col-md-12">
+                                    <p className='text-center well'>
+                                        Nenhuma empresa encontrada.
+                                    </p>
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>
