@@ -65,7 +65,7 @@ const Footer = () => {
                         <div className="row">
                             <div className="col-md-5">
                                 <p>&copy; 2024 - EcoStart - Todos os direitos reservados,
-                                    <span className='bold'> SQUARE HOLDINGS</span>
+                                    <span className='bold'> SQUARE</span>
                                 </p>
                                 <p>CNPJ 14.380.200/0001-21 / Candido Falcão, nº 1155, Centro
                                 São Borja/RS - CEP 60670</p>

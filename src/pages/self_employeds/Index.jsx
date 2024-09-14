@@ -1,10 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import SelfEmployed from '../../components/self_employeds/SelfEmployed';
 import { getSelfEmployedsProfiles } from "../../business/self_employed";
-import './style.scss';
+
 import rollbar from "../../config/rollbar";
-import {toast} from "react-toastify";
-import Company from "../../components/companies/Company";
+import { toast } from "react-toastify";
+
+import './style.scss';
 
 const SelfEmployedsPage = () => {
     const [selfEmployeds, setSelfEmployeds] = useState([]);
@@ -46,8 +47,8 @@ const SelfEmployedsPage = () => {
 
                         <div className="row">
                             {selfEmployeds.length > 0 ? (
-                                selfEmployeds.map(company => (
-                                    <Company company={company} key={company.id}/>
+                                selfEmployeds.map(selfEmployed => (
+                                    <SelfEmployed selfEmployed={selfEmployed} key={selfEmployed.id}/>
                                 ))
                             ) : (
                                 <div className="col-md-12">

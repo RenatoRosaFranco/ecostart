@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { auth, firestore } from "../../config/firebase";
+import InputMask from 'react-input-mask';
+import { Field, ErrorMessage } from 'formik'
 import { toast } from "react-toastify";
 
 import './EditProfile.scss';
@@ -13,11 +15,21 @@ const EditProfile = () => {
         const fetchProfile = async () => {
             const user = auth.currentUser;
 
-            if (!user) {
-                const profileDoc = await getDoc(doc(firestore, 'profiles', user.uid));
-                if (profileDoc.exists()) {
-                    setProfile(profileDoc.data());
+            // Verifica se o usuário está autenticado
+            if (user) {
+                try {
+                    const profileDoc = await getDoc(doc(firestore, 'profiles', user.uid));
+                    if (profileDoc.exists()) {
+                        setProfile(profileDoc.data());
+                    } else {
+                        toast.error('Perfil não encontrado.');
+                    }
+                } catch (error) {
+                    toast.error('Erro ao buscar perfil.');
+                    console.error('Erro ao buscar perfil:', error);
                 }
+            } else {
+                toast.error('Usuário não autenticado.');
             }
             setLoading(false);
         }
@@ -33,7 +45,8 @@ const EditProfile = () => {
     const handleSave = async () => {
         const user = auth.currentUser;
 
-        if (!user) {
+        // Verifica se o usuário está autenticado
+        if (user) {
             try {
                 await updateDoc(doc(firestore, 'profiles', user.uid), {
                     name: profile.name,
@@ -41,13 +54,16 @@ const EditProfile = () => {
 
                 toast.success('Perfil atualizado com sucesso!');
             } catch (error) {
-                toast.error('Erro ao atualizar o perfil');
+                toast.error('Erro ao atualizar o perfil.');
+                console.error('Erro ao atualizar o perfil:', error);
             }
+        } else {
+            toast.error('Usuário não autenticado.');
         }
     };
 
     if (loading) {
-        return(
+        return (
             <p>Carregando...</p>
         );
     }
@@ -72,11 +88,12 @@ const EditProfile = () => {
                                 onChange={handleInputChange}
                             />
                         </div>
-
                         <br />
-                        <button type="button"
-                                className='btn btn-primary btn-md'
-                                onClick={handleSave}>
+                        <button
+                            type="button"
+                            className="btn btn-primary"
+                            onClick={handleSave}
+                        >
                             Salvar
                         </button>
                     </form>
@@ -84,6 +101,6 @@ const EditProfile = () => {
             </div>
         </div>
     );
-}
+};
 
 export default EditProfile;
