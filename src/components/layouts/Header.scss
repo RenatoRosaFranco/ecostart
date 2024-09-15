@@ -61,7 +61,18 @@ $dropdown-menu-background: #f8f9fa;
     }
 
     .dropdown-menu {
+      padding-top: 15px;
       min-width: 200px;
+
+      li {
+        position: relative;
+        margin-bottom: 10px;
+      }
+
+      i {
+        margin-right: 10px;
+      }
+
 
       .dropdown-item {
         padding: 10px 15px;

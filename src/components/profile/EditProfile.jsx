@@ -1,37 +1,33 @@
 import React, { useState, useEffect } from "react";
-import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
 import { auth, firestore } from "../../config/firebase";
 import InputMask from 'react-input-mask';
-import { Field, ErrorMessage } from 'formik'
 import { toast } from "react-toastify";
-
 import './EditProfile.scss';
+import {getProfile, updateProfile} from "../../business/profile";
 
 const EditProfile = () => {
-    const [profile, setProfile] = useState({ name: '' });
+    const [profile, setProfile] = useState({});
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchProfile = async () => {
             const user = auth.currentUser;
 
-            // Verifica se o usuário está autenticado
-            if (user) {
-                try {
-                    const profileDoc = await getDoc(doc(firestore, 'profiles', user.uid));
-                    if (profileDoc.exists()) {
-                        setProfile(profileDoc.data());
-                    } else {
-                        toast.error('Perfil não encontrado.');
-                    }
-                } catch (error) {
-                    toast.error('Erro ao buscar perfil.');
-                    console.error('Erro ao buscar perfil:', error);
+            try {
+                const result = await getProfile(user.uid);
+
+                if (result.success) {
+                    setProfile(result.data);
+                } else {
+                    toast.error(result.message);
                 }
-            } else {
-                toast.error('Usuário não autenticado.');
+            } catch (error) {
+                toast.error('Erro ao buscar perfil.');
+                console.error('Erro ao buscar perfil:', error);
+            } finally {
+                setLoading(false);
             }
-            setLoading(false);
         }
 
         fetchProfile();
@@ -45,27 +41,25 @@ const EditProfile = () => {
     const handleSave = async () => {
         const user = auth.currentUser;
 
-        // Verifica se o usuário está autenticado
-        if (user) {
-            try {
-                await updateDoc(doc(firestore, 'profiles', user.uid), {
-                    name: profile.name,
-                });
+        try {
+            const result = await updateProfile(user.uid, profile);
+
+            if (result.success) {
+                const updatedProfileDoc = await getDoc(doc(firestore, 'profiles', user.uid));
+                setProfile(updatedProfileDoc.data());
 
                 toast.success('Perfil atualizado com sucesso!');
-            } catch (error) {
-                toast.error('Erro ao atualizar o perfil.');
-                console.error('Erro ao atualizar o perfil:', error);
+            } else {
+                toast.error(result.message);
             }
-        } else {
-            toast.error('Usuário não autenticado.');
+        } catch (error) {
+            toast.error('Erro ao atualizar o perfil.');
+            console.error('Erro ao atualizar o perfil:', error);
         }
     };
 
     if (loading) {
-        return (
-            <p>Carregando...</p>
-        );
+        return <p>Carregando...</p>;
     }
 
     return (
@@ -89,6 +83,38 @@ const EditProfile = () => {
                             />
                         </div>
                         <br />
+
+                        <div>
+                            <label>CPF/CNPJ:</label>
+                            <InputMask
+                                mask={profile.account_type === 'company' ? '99.999.999/9999-99' : '999.999.999-99'}
+                                type="text"
+                                name="document_number"
+                                className="form-control"
+                                placeholder="Digite seu CPF ou CNPJ"
+                                value={profile.document_number}
+                                disabled={true}
+                                onChange={handleInputChange}
+                            />
+                        </div>
+                        <br />
+
+                        <div>
+                            <label>Tipo de Conta:</label>
+                            <select
+                                name="account_type"
+                                className="form-control"
+                                value={profile.account_type}
+                                onChange={handleInputChange}
+                                disabled={true}
+                            >
+                                <option value="">Selecione o tipo de conta</option>
+                                <option value="company">Empresa</option>
+                                <option value="self_employed">Prestador de serviço</option>
+                            </select>
+                        </div>
+                        <br />
+
                         <button
                             type="button"
                             className="btn btn-primary"

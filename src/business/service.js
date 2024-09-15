@@ -1,5 +1,20 @@
 import { firestore } from "../config/firebase";
-import { collection, doc, addDoc, updateDoc, deleteDoc, getDoc, getDocs, query, where } from 'firebase/firestore';
+
+import {
+    collection,
+    doc,
+    addDoc,
+    updateDoc,
+    deleteDoc,
+    getDoc,
+    getDocs,
+    query,
+    where,
+    limit,
+    startAfter,
+    orderBy
+} from 'firebase/firestore';
+
 import { getCurrentUser } from "../utils/userUtils";
 import rollbar from "../config/rollbar";
 
@@ -32,14 +47,28 @@ export const getServiceById = async (serviceId) => {
     }
 };
 
-export const getServicesByUser = async (userId) => {
+export const getServicesByUser = async (userId, page, pageSize) => {
     try {
         const servicesRef = collection(firestore, 'services');
-        const q = query(servicesRef, where('ownerId', '==', userId));
+
+        const q = query(
+            servicesRef,
+            where('ownerId', '==', userId),
+            limit(pageSize)
+        );
+
         const querySnapshot = await getDocs(q);
         const services = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
 
-        return { success: true, services };
+        const totalDocsRef = query(
+            servicesRef,
+            where('ownerId', '==', userId)
+        );
+        const totalDocsSnapshot = await getDocs(totalDocsRef);
+        const totalDocs = totalDocsSnapshot.size;
+        const totalPages = Math.ceil(totalDocs / pageSize);
+
+        return { success: true, services, totalPages };
     } catch (error) {
         rollbar.error('Erro ao buscar serviços por usuário:', error);
         return { success: false, services: [], message: error.message };
