@@ -78,6 +78,7 @@ const Header = () => {
                                 <>
                                     <li>
                                         <Link to='/'>
+                                            <i className="fa-solid fa-graduation-cap" style={{ marginRight: 8 }}></i>
                                             Aprenda
                                         </Link>
                                     </li>
@@ -88,6 +89,7 @@ const Header = () => {
                                             aria-haspopup="true"
                                             aria-expanded="false"
                                         >
+                                            <i className="fa-solid fa-circle-user" style={{ marginRight: 8 }}></i>
                                             Perfil <span className="caret"></span>
                                         </button>
                                         <ul className="dropdown-menu">
@@ -154,6 +156,7 @@ const Header = () => {
                                             className="btn btn-link navbar-btn"
                                             onClick={handleLogout}
                                         >
+                                            <i className="fas fa-power-off" style={{ marginRight: 5 }}></i>
                                             Sair
                                         </button>
                                     </li>
