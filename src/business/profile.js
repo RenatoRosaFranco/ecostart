@@ -22,8 +22,11 @@ export const createProfile = async (userId, profileData) => {
     try {
         const profileRef = doc(firestore, 'profiles', userId);
 
+        console.log(profileData);
+
         await setDoc(profileRef, {
             name: profileData.name,
+            phone_number: profileData.phone_number,
             document_number: profileData.document_number,
             account_type: profileData.account_type,
             ownerId: userId,

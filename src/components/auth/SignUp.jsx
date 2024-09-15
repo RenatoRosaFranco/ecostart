@@ -10,10 +10,11 @@ import './SignUp.scss';
 const SignUp = () => {
     const [documentMask, setDocumentMask] = useState('999.999.999-99');
     const [documentHint, setDocumentHint] = useState('Digite o CPF')
+    const [phoneMask, setPhoneMask] = useState('(99) 99999-9999');
 
     const handleSignUp = async (values, { resetForm }) => {
-        let { name, email, password, document_number, account_type } = values;
-        const result = await signUp(name, email, password, document_number, account_type);
+        let { name, email, password, document_number, account_type, phone_number } = values;
+        const result = await signUp(name, email, phone_number, document_number, account_type, password);
 
         if (result.success) {
             toast.success(result.message);
@@ -64,6 +65,22 @@ const SignUp = () => {
                                     </div>
                                 </div>
                                 <div className="form-group">
+                                    <label htmlFor='phone_number' className='col-sm-2 control-label'>Telefone:</label>
+                                    <div className="col-sm-10">
+                                        <Field name="phone_number">
+                                            {({field}) => (
+                                                <InputMask
+                                                    {...field}
+                                                    mask={phoneMask}
+                                                    className="form-control"
+                                                    placeholder='Digite o telefone'
+                                                />
+                                            )}
+                                        </Field>
+                                        <ErrorMessage name="phone_number" component='div' className='text-danger'/>
+                                    </div>
+                                </div>
+                                <div className="form-group">
                                     <label htmlFor='email' className='col-sm-2 control-label'>Email:</label>
                                     <div className="col-sm-10">
                                         <Field
@@ -94,7 +111,6 @@ const SignUp = () => {
                                     </div>
                                 </div>
 
-                                {/* Tipo de Conta (Empresa ou Autônomo) */}
                                 <div className="form-group">
                                     <label className='col-sm-2 control-label'>Tipo de Conta:</label>
                                     <div className="col-sm-10">

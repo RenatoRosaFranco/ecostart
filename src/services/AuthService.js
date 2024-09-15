@@ -13,12 +13,12 @@ export const signIn = async (email, password) => {
     }
 };
 
-export const signUp = async (name, email, document_number, account_type, password) => {
+export const signUp = async (name, email, phone_number, document_number, account_type, password) => {
     try {
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
         const user = userCredential.user;
 
-        const profileData = { name, document_number, account_type, email }
+        const profileData = { name, phone_number, document_number, account_type };
         const result = await createProfile(user.uid, profileData);
 
         if (result.success) {
