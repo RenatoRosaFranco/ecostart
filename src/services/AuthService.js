@@ -1,7 +1,7 @@
-import { auth, firestore } from '../config/firebase';
+import { auth } from '../config/firebase';
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from 'firebase/auth';
 import rollbar from "../config/rollbar";
-import { doc, setDoc } from 'firebase/firestore';
+import {createProfile} from "../business/profile";
 
 export const signIn = async (email, password) => {
     try {
@@ -18,15 +18,14 @@ export const signUp = async (name, email, document_number, account_type, passwor
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
         const user = userCredential.user;
 
-        await setDoc(doc(firestore, 'profiles', user.uid), {
-            uid: user.uid, name: name,
-            email: email,
-            document_number: document_number,
-            account_type: account_type,
-            createdAt: new Date()
-        });
+        const profileData = { name, document_number, account_type, email }
+        const result = await createProfile(user.uid, profileData);
 
-        return { success: true, message: 'Cadastro realizado com sucesso!' };
+        if (result.success) {
+            return { success: true, message: 'Cadastro realizado com sucesso!' };
+        } else {
+            return { success: false, message: 'Erro ao criar perfil.' };
+        }
     } catch (error) {
         rollbar.error('Erro ao efetuar cadastro:', error);
         return { success: false, message: error.message };
