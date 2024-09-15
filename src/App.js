@@ -34,6 +34,9 @@ import AddServicePage from "./pages/self_employeds/services/AddServicePage";
 import SecurityPage from "./pages/security/Index";
 import HelpPage from "./pages/help/Index";
 import EditServicePage from "./pages/self_employeds/services/EditServicePage";
+import EditProductPage from "./pages/companies/products/EditProductPage";
+import AddProductPage from "./pages/companies/products/AddProductPage";
+import ProductsPage from "./pages/companies/Products";
 
 function App() {
     const { user, loading } = useAuth();
@@ -66,33 +69,18 @@ function App() {
                     <Route path='/prestador-servicos' element={<SelfEmployedsPage />} />
                     <Route path='/prestador-servicos/:id' element={<SelfEmployedsDetailPage />} />
 
-                    <Route path='/meus-servicos' element={
-                        user ? <ServicesPage /> : <Navigate to="/login" replace />}
-                    />
+                    <Route path='/meus-servicos' element={ user ? <ServicesPage /> : <Navigate to="/login" replace />} />
+                    <Route path='/meus-servicos/:serviceId' element={user ? <ServiceDetailPage /> : <Navigate to="/login" replace />} />
+                    <Route path='/meus-servicos/:serviceId/editar' element={ user ? <EditServicePage /> : <Navigate to="/login" replace />} />
+                    <Route path='/adicionar-servico' element={ user ? <AddServicePage /> : <Navigate to="/login" replace />} />
 
-                    <Route path='/meus-servicos/:serviceId' element={user ?
-                        <ServiceDetailPage /> : <Navigate to="/login" replace />
-                    } />
+                    <Route path='/meus-produtos' element={ user ? <ProductsPage /> : <Navigate to="/login" replace />} />
+                    <Route path='/meus-produtos/:productId/editar' element={ user ? <EditProductPage /> : <Navigate to="/login" replace />} />
+                    <Route path='/adicionar-produto' element={ user ? <AddProductPage /> : <Navigate to="/login" replace />} />
 
-                    <Route path='/meus-servicos/:serviceId/editar' element={ user ?
-                        <EditServicePage /> : <Navigate to="/login" replace />
-                    } />
-
-                    <Route path='/adicionar-servico' element={
-                        user ? <AddServicePage /> : <Navigate to="/login" replace />}
-                    />
-
-                    <Route path='/favoritos' element={
-                        user ? <FavoritesPage /> : <Navigate to="/login" replace />
-                    } />
-
-                    <Route path='/seguranca' element={
-                        user? <SecurityPage /> : <Navigate to="/login" replace />
-                    } />
-
-                    <Route path='/ajuda' element={
-                        user ? <HelpPage /> : <Navigate to='/login' replace />
-                    } />
+                    <Route path='/favoritos' element={ user ? <FavoritesPage /> : <Navigate to="/login" replace />} />
+                    <Route path='/seguranca' element={ user? <SecurityPage /> : <Navigate to="/login" replace />} />
+                    <Route path='/ajuda' element={ user ? <HelpPage /> : <Navigate to='/login' replace />} />
 
                     <Route path='/contato' element={<ContactPage />} />
                     <Route path='*' element={<HomePage />} />

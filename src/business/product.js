@@ -1,5 +1,5 @@
 import { firestore } from '../config/firebase';
-import { collection, doc, addDoc, updateDoc, deleteDoc, getDoc, getDocs } from 'firebase/firestore';
+import { collection, doc, addDoc, updateDoc, deleteDoc, getDoc, getDocs, query, where } from 'firebase/firestore';
 import { getCurrentUser } from "../utils/userUtils";
 import rollbar from "../config/rollbar";
 
@@ -32,6 +32,21 @@ export const getProductById = async (productId) => {
     }
 };
 
+export const getProductsByUser = async (userId) => {
+    try {
+        const productsRef = collection(firestore, 'products');
+        const q = query(productsRef, where('ownerId', '==', userId));
+
+        const querySnapshot = await getDocs(q);
+        const products = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+
+        return { success: true, products };
+    } catch (error) {
+        rollbar.error('Erro ao buscar serviços por usuário:', error);
+        return { success: false, services: [], message: error.message };
+    }
+};
+
 export const createProduct = async (productData) => {
     try {
         const user = await getCurrentUser();
@@ -53,6 +68,7 @@ export const createProduct = async (productData) => {
 export const updateProduct = async (productId, productData) => {
     try {
         const productRef = doc(firestore, "products", productId);
+
         await updateDoc(productRef, {
             ...productData,
             updatedAt: new Date(),

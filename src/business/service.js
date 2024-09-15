@@ -11,8 +11,6 @@ import {
     query,
     where,
     limit,
-    startAfter,
-    orderBy
 } from 'firebase/firestore';
 
 import { getCurrentUser } from "../utils/userUtils";
