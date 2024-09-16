@@ -5,14 +5,10 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { getServicesByUser } from "../../business/service";
 import { getCurrentUser } from "../../utils/userUtils";
-import ReactPaginate from 'react-paginate';
 
 const ServicesPage = () => {
     const [services, setServices] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [currentPage, setCurrentPage] = useState(0);
-    const [totalPages, setTotalPages] = useState(0);
-    const servicesPerPage = 2;
 
     const navigate = useNavigate();
 
@@ -20,13 +16,10 @@ const ServicesPage = () => {
         const fetchServices = async () => {
             try {
                 const user = await getCurrentUser();
-                const response = await getServicesByUser(user.uid, currentPage + 1, servicesPerPage);
-
-                console.log(response);
+                const response = await getServicesByUser(user.uid);
 
                 if (response.success) {
                     setServices(response.services);
-                    setTotalPages(response.totalPages);
                 } else {
                     toast.error('Erro ao buscar serviços, tente novamente.');
                 }
@@ -39,14 +32,10 @@ const ServicesPage = () => {
         };
 
         fetchServices();
-    }, [currentPage]);
+    }, []);
 
     const handleAddService = () => {
         navigate('/adicionar-servico');
-    };
-
-    const handlePageChange = (selectedPage) => {
-        setCurrentPage(selectedPage.selected);
     };
 
     if (loading) {
@@ -79,23 +68,9 @@ const ServicesPage = () => {
                         ) : (
                             <p className='well text-center'>
                                 Você ainda não anunciou nenhum serviço,
-                                vamos <a href='' className='bold'>anunciar?</a>
+                                vamos <a href={handleAddService} className='bold'>anunciar?</a>
                             </p>
                         )}
-
-                        <div className="text-center" id="pagination">
-                            <ReactPaginate
-                                previousLabel={"Anterior"}
-                                nextLabel={"Próxima"}
-                                breakLabel={"..."}
-                                pageCount={totalPages}
-                                marginPagesDisplayed={2}
-                                pageRangeDisplayed={5}
-                                onPageChange={handlePageChange}
-                                containerClassName={"pagination"}
-                                activeClassName={"active"}
-                            />
-                        </div>
                     </div>
                 </div>
             </div>

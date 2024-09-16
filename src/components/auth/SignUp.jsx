@@ -10,11 +10,14 @@ import './SignUp.scss';
 const SignUp = () => {
     const [documentMask, setDocumentMask] = useState('999.999.999-99');
     const [documentHint, setDocumentHint] = useState('Digite o CPF')
-    const [phoneMask, setPhoneMask] = useState('(99) 99999-9999');
+    const [phoneMask] = useState('(99) 99999-9999');
 
     const handleSignUp = async (values, { resetForm }) => {
         let { name, email, password, document_number, account_type, phone_number } = values;
-        const result = await signUp(name, email, phone_number, document_number, account_type, password);
+        
+        let profileData = { name, phone_number, document_number, account_type };
+
+        const result = await signUp(email, password, profileData);
 
         if (result.success) {
             toast.success(result.message);

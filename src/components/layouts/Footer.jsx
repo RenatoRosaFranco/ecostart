@@ -10,20 +10,19 @@ const Footer = () => {
                     <div className="col-md-3">
                         <h4 className="bold">EcoStart</h4>
                         <ul className="list-unstyled links">
-                            <li><Link to='/'>Site Institucional </Link></li>
-                            <li><Link to='/'>Fale Conosco</Link></li>
-                            <li><Link to='/'>Carreiras</Link></li>
-                            <li><Link to='/'>Perguntas Frequentes</Link></li>
-                            <li><Link to='/'>SAC</Link></li>
+                            <li><Link to='/institucional'>Site Institucional </Link></li>
+                            <li><Link to='/contato'>Fale Conosco</Link></li>
+                            <li><Link to='/carreiras'>Carreiras</Link></li>
+                            <li><Link to='/perguntas-frequentes'>Perguntas Frequentes</Link></li>
                         </ul>
                     </div>
 
                     <div className="col-md-3">
                         <h4 className="bold">Descubra</h4>
                         <ul className="list-unstyled links">
-                            <li><Link to='/'>Empresas</Link></li>
-                            <li><Link to='/'>Prestadores de Serviço</Link></li>
-                            <li><Link to='/'>Blog EcoStart</Link></li>
+                            <li><Link to='/empresas'>Empresas</Link></li>
+                            <li><Link to='/prestador-servicos'>Prestadores de Serviço</Link></li>
+                            <li><Link to='/blog'>Blog EcoStart</Link></li>
                         </ul>
                     </div>
 

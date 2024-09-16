@@ -11,7 +11,7 @@ const Company = ({ company }) => {
     }
 
     return(
-        <div className='company-card col-md-4' key={id} onClick={handleClick}>
+        <div className='company-card col-md-3' key={id} onClick={handleClick}>
            <div className="panel panel-default">
                <div className="panel-body">
                    <img src={image} alt={name} className='company-image'/>
